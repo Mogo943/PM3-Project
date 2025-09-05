@@ -11,7 +11,7 @@
     "target": "es2023",
 
     // For nodejs:
-    // "lib": ["esnext"],
+    "lib": ["esnext"],
     "types": ["node"],
     // and npm install -D @types/node
     "esModuleInterop": true,
@@ -43,12 +43,12 @@
     "skipLibCheck": true,
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
-
+    
     //Extras
     "removeComments": true,
   },
 
-  "include": ["./src**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"],
 
 }
