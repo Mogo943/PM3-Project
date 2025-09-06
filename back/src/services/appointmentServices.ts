@@ -9,11 +9,11 @@ export const getAllAppointmentsService = async (): Promise<IAppointment[]> => {
     return appointments;
 }
 
-export const getAppointmentDetailService = async (id: number): Promise<IAppointment | undefined> => {
+export const getAppointmentDetailService = async (id: number): Promise<IAppointment> => {
     const appointment: IAppointment | undefined = appointments.find((item: IAppointment) => {
         return item.id === id
     });
-
+    if(!appointment) throw Error("Appointment not found");
     return appointment;
 }
 

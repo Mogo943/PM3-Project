@@ -1,5 +1,4 @@
-import CredentialDto from "../dto/credentialDto";
-import UserDto from "../dto/userDTo";
+import UserDto from "../dto/userDto";
 import ICredential from "../interfaces/ICredential";
 import IUser from "../interfaces/IUser";
 import { createCredential } from "./credentialServices";
@@ -11,16 +10,17 @@ export const getAllUsersService = async (): Promise<IUser[]> => {
     return users;
 }
 
-export const getUserByIdService = async (id: number): Promise<IUser | undefined> => {
+export const getUserByIdService = async (id: number): Promise<IUser> => {
     const user: IUser | undefined = users.find((item:IUser) => {
         return item.id === id
     })
-
+    if(!user) throw Error("User not found");
     return user;
 }
 
-export const registerService = async (userData: UserDto, credentialData: CredentialDto): Promise<IUser> => {
-    const newCredential: ICredential = await createCredential(credentialData);
+export const registerService = async (userData: UserDto): Promise<IUser> => {
+    const {username, password} = userData
+    const newCredential: ICredential = await createCredential({username, password});
 
     const newUser: IUser = {
         id,
@@ -33,4 +33,12 @@ export const registerService = async (userData: UserDto, credentialData: Credent
     users.push(newUser);
     id++;
     return newUser;
+}
+
+export const findUserByCredentialIdService = async (credentialId:number): Promise<IUser> => {
+    const user: IUser | undefined = users.find((item:IUser) => {
+        return item.id === credentialId
+    })
+    if(!user) throw Error("User not found");
+    return user;
 }

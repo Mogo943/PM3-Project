@@ -5,13 +5,6 @@ let id: number = 1;
 let credentials: ICredential[] = [];
 
 export const createCredential = async (credentialData: CredentialDto): Promise<ICredential> => {
-    
-    const exists: boolean = credentials.some((item: ICredential) => item.username === credentialData.username)
-    
-    if(exists) {
-        throw new Error("Username already exists")
-    } 
-
     const newCredential: ICredential = {
         id,
         username: credentialData.username,
@@ -23,13 +16,11 @@ export const createCredential = async (credentialData: CredentialDto): Promise<I
     return newCredential
 }
 
-export const checkCredential = async (credentialData: CredentialDto): Promise<number> =>{
+export const validateCredentialService = async (credentialData: CredentialDto): Promise<ICredential> =>{
     const credential = credentials.find((item:ICredential) => item.username === credentialData.username)
 
-    if(credential && credential.password === credentialData.password) {
-        return credential.id
-    } else {
-        throw new Error("wrong user or password")
-    }
+    if(!credential || credential.password !== credentialData.password) throw Error("wrong user or password")
+        
+    return credential
 }
 

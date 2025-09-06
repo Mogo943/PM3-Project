@@ -3,7 +3,6 @@ import router from "./routes/indexRouter";
 import cors from "cors";
 import morgan from "morgan";
 
-
 const server = express();
 
 server.use(cors());

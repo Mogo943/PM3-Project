@@ -13,6 +13,8 @@
     // For nodejs:
     "lib": ["esnext"],
     "types": ["node"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     // and npm install -D @types/node
     "esModuleInterop": true,
 
@@ -24,6 +26,7 @@
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    "strictPropertyInitialization": false,
 
     // Style Options
     // "noImplicitReturns": true,
