@@ -1,13 +1,11 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
-import { UserEntitie } from "./userEntitie"
 
-@Entity("credentials")
-export class CredentialEntitie {
+@Entity({ name: "credentials" })
+export class Credential {
     @PrimaryGeneratedColumn()
     id: number
 
-    @OneToOne(() => UserEntitie, (user) => user.username)
-    @JoinColumn()
+    @Column({ unique: true })
     username: string
 
     @Column()

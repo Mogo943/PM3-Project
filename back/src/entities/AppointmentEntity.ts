@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { AppointmentStatus } from "../interfaces/IAppointment";
-import { UserEntitie } from "./userEntitie";
+import { User } from "./UserEntity";
 
-@Entity("appointments")
-export class AppointmentEntitie {
+@Entity({ name:"appointments" })
+export class Appointment {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -11,15 +11,17 @@ export class AppointmentEntitie {
     description: string
     
     @Column()
-    date: string
+    date: Date
 
     @Column()
     time: string
-
-    @ManyToOne(() => UserEntitie, (user) => user.id)
-    @JoinColumn()
-    userId: number
-
-    @Column()
+    
+    @Column({
+        default: AppointmentStatus.ACTIVE
+    })
     status: AppointmentStatus
+
+    @ManyToOne(() => User, (user) => user.appointments)
+    @JoinColumn({ name: "user_id"})
+    user: User
 }

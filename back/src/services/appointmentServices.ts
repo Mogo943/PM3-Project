@@ -24,7 +24,7 @@ export const  scheduleService = async (appointmentData: AppointmentDto): Promise
         date: appointmentData.date,
         time: appointmentData.time,
         userId: appointmentData.userId,
-        status: appointmentData.status
+        status: AppointmentStatus.ACTIVE
     }
     appointments.push(newAppointment);
     id++;

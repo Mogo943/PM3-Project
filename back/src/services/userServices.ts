@@ -2,6 +2,7 @@ import UserDto from "../dto/userDto";
 import ICredential from "../interfaces/ICredential";
 import IUser from "../interfaces/IUser";
 import { createCredential } from "./credentialServices";
+import { userRepository } from "../config/data-source";
 
 let users: IUser[] = [];
 let id: number = 1;

@@ -1,18 +1,22 @@
 import { DataSource } from "typeorm"
-import { UserEntitie } from "../entities/userEntitie"
-import { AppointmentEntitie } from "../entities/appointmentEntitie"
-import { CredentialEntitie } from "../entities/credentialEntitie"
+import { User } from "../entities/UserEntity"
+import { Appointment } from "../entities/AppointmentEntity"
+import { Credential } from "../entities/CredentialEntity"
+import { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_NAME } from "./envs"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "7598",
-    database: "users",
+    host: DB_HOST,
+    port: Number(DB_PORT),
+    username: DB_USERNAME,
+    password: DB_PASSWORD,
+    database: DB_NAME,
+    dropSchema:false,
     synchronize: true,
     logging: false,
-    entities: [UserEntitie, AppointmentEntitie, CredentialEntitie],
+    entities: [User, Appointment, Credential],
     subscribers: [],
     migrations: [],
 })
+
+export const userRepository = AppDataSource.getRepository(User);
