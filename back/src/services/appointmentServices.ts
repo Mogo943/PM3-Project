@@ -1,41 +1,45 @@
 import AppointmentDto from "../dto/appointmentDto";
-import IAppointment, { AppointmentStatus } from "../interfaces/IAppointment";
+import { AppointmentStatus } from "../interfaces/IAppointment";
+import { appointmentRepository, userRepository } from "../repositories/indexRepository";
+import { Appointment } from "../entities/AppointmentEntity";
+import { User } from "../entities/UserEntity";
 
-
-let appointments: IAppointment[] = [];
-let id: number = 1;
-
-export const getAllAppointmentsService = async (): Promise<IAppointment[]> => {
+export const getAllAppointmentsService = async (): Promise<Appointment[]> => {
+    const appointments = await appointmentRepository.find({
+        relations: { user: true },
+    })
     return appointments;
 }
 
-export const getAppointmentDetailService = async (id: number): Promise<IAppointment> => {
-    const appointment: IAppointment | undefined = appointments.find((item: IAppointment) => {
-        return item.id === id
-    });
+export const getAppointmentDetailService = async (id: number): Promise<Appointment> => {
+    const appointment: Appointment | null = await appointmentRepository.findOneBy({
+        id
+    })
     if(!appointment) throw Error("Appointment not found");
     return appointment;
 }
 
-export const  scheduleService = async (appointmentData: AppointmentDto): Promise<IAppointment> => {
-    const newAppointment: IAppointment = {
-        id,
-        description: appointmentData.description,
-        date: appointmentData.date,
-        time: appointmentData.time,
-        userId: appointmentData.userId,
-        status: AppointmentStatus.ACTIVE
-    }
-    appointments.push(newAppointment);
-    id++;
+export const  scheduleService = async (appointmentData: AppointmentDto): Promise<Appointment> => {
+    const { userId } = appointmentData;
+
+    const user: User | null = await userRepository.findOneBy({id: userId});
+    if(!user) throw new Error("User not found");
+    
+    const newAppointment: Appointment = appointmentRepository.create(appointmentData);
+    newAppointment.user = user;
+    
+    await appointmentRepository.save(newAppointment);
     return newAppointment;
 }
 
 export const cancelService = async (id: number): Promise<void> => {
-    const appointment: IAppointment | undefined = appointments.find((item:IAppointment) => item.id === id);
+    const foundAppointment: Appointment | null = await appointmentRepository.findOne({
+        where: { id }
+    })
 
-    if(appointment) {
-        appointment.status = AppointmentStatus.CANCELLED
+    if(foundAppointment) {
+        foundAppointment.status = AppointmentStatus.CANCELLED
+        await appointmentRepository.save(foundAppointment)
     } else {
         throw new Error(`Appointment with id ${id} not found`)
     }

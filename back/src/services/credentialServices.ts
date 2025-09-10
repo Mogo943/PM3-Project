@@ -1,26 +1,22 @@
+import { credentialRepository } from "../repositories/indexRepository";
 import CredentialDto from "../dto/credentialDto";
-import ICredential from "../interfaces/ICredential";
+import { Credential } from "../entities/CredentialEntity";
 
-let id: number = 1;
-let credentials: ICredential[] = [];
+export const createCredential = async (credentialData: CredentialDto): Promise<Credential> => {
+    const foundCredential: Credential | null = await credentialRepository.findOneBy({ username: credentialData.username});
+    if(foundCredential) throw Error ("Username already exists");
 
-export const createCredential = async (credentialData: CredentialDto): Promise<ICredential> => {
-    const newCredential: ICredential = {
-        id,
-        username: credentialData.username,
-        password: credentialData.password
-    }
+    const newCredential: Credential = credentialRepository.create(credentialData);
 
-    id++
-    credentials.push(newCredential);
-    return newCredential
+    await credentialRepository.save(newCredential);
+
+    return newCredential;
 }
 
-export const validateCredentialService = async (credentialData: CredentialDto): Promise<ICredential> =>{
-    const credential = credentials.find((item:ICredential) => item.username === credentialData.username)
-
-    if(!credential || credential.password !== credentialData.password) throw Error("wrong user or password")
+export const validateCredentialService = async (credentialData: CredentialDto): Promise<number> =>{
+    const foundCredential: Credential | null = await credentialRepository.findOneBy({ username: credentialData.username});
+    
+    if(!foundCredential) throw Error("wrong user or password")
         
-    return credential
+    return foundCredential.id
 }
-

@@ -1,44 +1,51 @@
 import UserDto from "../dto/userDto";
-import ICredential from "../interfaces/ICredential";
-import IUser from "../interfaces/IUser";
 import { createCredential } from "./credentialServices";
-import { userRepository } from "../config/data-source";
+import { User } from "../entities/UserEntity";
+import { userRepository } from "../repositories/indexRepository";
+import { Credential } from "../entities/CredentialEntity";
 
-let users: IUser[] = [];
-let id: number = 1;
-
-export const getAllUsersService = async (): Promise<IUser[]> => {
+export const getAllUsersService = async (): Promise<User[]> => {
+    const users = await userRepository.find({
+        relations: {appointments: true},
+    })
     return users;
 }
 
-export const getUserByIdService = async (id: number): Promise<IUser> => {
-    const user: IUser | undefined = users.find((item:IUser) => {
-        return item.id === id
+export const getUserByIdService = async (id: number): Promise<User> => {
+    const user: User | null = await userRepository.findOne({
+        where: { id },
+        relations: { appointments: true },
     })
     if(!user) throw Error("User not found");
     return user;
 }
 
-export const registerService = async (userData: UserDto): Promise<IUser> => {
+export const registerService = async (userData: UserDto): Promise<User> => {
     const {username, password} = userData
-    const newCredential: ICredential = await createCredential({username, password});
+    const {name, email, birthdate, nDni} = userData
 
-    const newUser: IUser = {
-        id,
-        email: userData.email,
-        name: userData.name,
-        birthdate: userData.birthdate,
-        nDni: userData.nDni,
-        credentialId: newCredential.id
-    }
-    users.push(newUser);
-    id++;
-    return newUser;
+    const foundUser: User | null = await userRepository.findOneBy({ email });
+    if(foundUser) throw new Error ("User already exists")
+
+    const newCredential: Credential = await createCredential({username, password});
+
+    const newUser: User = userRepository.create({
+        name,
+        email,
+        birthdate,
+        nDni
+    })
+    await userRepository.save(newUser)
+
+    newUser.credential = newCredential
+    userRepository.save(newUser)
+
+    return newUser
 }
 
-export const findUserByCredentialIdService = async (credentialId:number): Promise<IUser> => {
-    const user: IUser | undefined = users.find((item:IUser) => {
-        return item.id === credentialId
+export const findUserByCredentialIdService = async (credentialId:number): Promise<User> => {
+    const user: User | null = await userRepository.findOneBy({
+        credential: { id: credentialId },
     })
     if(!user) throw Error("User not found");
     return user;

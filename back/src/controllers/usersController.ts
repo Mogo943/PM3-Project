@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { findUserByCredentialIdService, getAllUsersService, getUserByIdService, registerService } from "../services/userServices";
-import IUser from "../interfaces/IUser";
+import { User } from "../entities/UserEntity";
 import { validateCredentialService } from "../services/credentialServices";
 
 export const getAllUsers = async (req: Request, res:Response) => {
     try {
-       const users: IUser[] = await getAllUsersService();
+       const users: User[] = await getAllUsersService();
         res.status(200).json(users) 
     } catch (error: any) {
         res.status(404).json({message: error.message, error})
@@ -15,7 +15,7 @@ export const getAllUsers = async (req: Request, res:Response) => {
 export const getUserById = async (req: Request, res:Response) => {
     try {
         const {id} = req.body;
-        const user: IUser = await getUserByIdService(Number(id));
+        const user: User = await getUserByIdService(Number(id));
         res.status(200).json(user)
     } catch (error:any) {
         res.status(404).json({message: error.message, error})
@@ -25,11 +25,9 @@ export const getUserById = async (req: Request, res:Response) => {
 export const register = async (req: Request, res:Response) => {
     try {
         const { name, email, birthdate, nDni, username, password } = req.body
-        const newUser = await registerService({ name, email, birthdate, nDni, username, password });
-        res.status(201).json(
-        {message: "Registro de nuevo usuario",
-        body: newUser
-    })
+        const newUser: User = await registerService({ name, email, birthdate, nDni, username, password });
+        const { credential, ...userWithoutCredential} = newUser;
+        res.status(201).json(userWithoutCredential)
     } catch (error: any) {
         res.status(404).json({message: error.message, error})
     }
@@ -38,13 +36,12 @@ export const register = async (req: Request, res:Response) => {
 export const login = async (req: Request, res:Response) => {
     try {
         const { username, password } = req.body
-        const credential = await validateCredentialService({username, password})
-        const actualUser = await findUserByCredentialIdService(credential.id)
+        const credentialId: number = await validateCredentialService({username, password})
+        const actualUser: User = await findUserByCredentialIdService(credentialId)
 
         res.status(200).json({
             login: true,
             actualUser,
-            credential
         })
     } catch (error: any) {
         res.status(404).json({message: error.message, error})
