@@ -24,6 +24,9 @@
         height: 50px;
         padding: 2em;
         margin-top: 1rem;
+    };
+    img:hover {
+        cursor: pointer;
     }
 }
 

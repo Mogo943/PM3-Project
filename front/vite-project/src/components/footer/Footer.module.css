@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    gap: 1.5em;
+    font-size: 0.8rem;
+    color: whitesmoke;
+    background: linear-gradient(
+        to left,
+        gray 0%,
+        black 100%
+    )  
+}

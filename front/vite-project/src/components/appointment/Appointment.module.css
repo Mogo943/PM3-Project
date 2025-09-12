@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* centra verticalmente */
+    justify-content: space-between; /* distribuye columnas */
+    gap: 2em;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 1px solid rgb(172, 170, 170);
+    border-radius: 12px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+/* Columna ID */
+.h2 {
+    margin: 0;
+    color: rgb(248, 58, 58);
+    min-width: 50px;
+}
+
+/* Columna fecha-hora */
+.dateTime {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+}
+
+/* Columna descripción */
+.description {
+    flex: 1; /* ocupa espacio sobrante */
+    min-width: 200px;
+}
+
+/* Columna status + botón */
+.status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status button {
+    padding: 4px 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: crimson;
+    color: white;
+    cursor: pointer;
+}
+
+.status button:hover {
+    background-color: darkred;
+}
