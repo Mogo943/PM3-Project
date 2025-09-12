@@ -5,7 +5,6 @@ const AppointmentsView = () => {
     return (
         <div className={style.container}>
             <h1>Turnos</h1>
-            <h3>Estos son los turnos del usuario</h3>
 
             <div>
                 <MyAppointment/>

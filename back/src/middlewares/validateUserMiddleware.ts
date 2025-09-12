@@ -28,7 +28,7 @@ const validateUser = (req: Request, res: Response, next: NextFunction) => {
 
         if(!username) throw new Error("Username required");
         if(username.length < 4) throw new Error("Username must have more than 4 characters");
-        if(username.length < 20) throw new Error("Username must have less than 20 characters");
+        if(username.length > 20) throw new Error("Username must have less than 20 characters");
         
         if(!password) throw new Error("Password required");
         if(password.length < 4) throw new Error("Password must have more than 4 characters");

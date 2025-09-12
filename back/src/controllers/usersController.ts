@@ -29,7 +29,7 @@ export const register = async (req: Request, res:Response) => {
         const { credential, ...userWithoutCredential} = newUser;
         res.status(201).json(userWithoutCredential)
     } catch (error: any) {
-        res.status(404).json({message: error.message, error})
+        res.status(400).json({message: error.message, error})
     }
 }
 
@@ -44,6 +44,6 @@ export const login = async (req: Request, res:Response) => {
             actualUser,
         })
     } catch (error: any) {
-        res.status(404).json({message: error.message, error})
+        res.status(400).json({message: error.message, error})
     }
 }
