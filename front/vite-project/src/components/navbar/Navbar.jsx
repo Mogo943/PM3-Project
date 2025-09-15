@@ -1,6 +1,7 @@
 import logo from "../../assets/Logo.png";
 import avatar from "../../assets/avatar.png";
 import styles from "./Navbar.module.css"
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return (
@@ -9,10 +10,18 @@ const NavBar = () => {
                 <img src = {logo} alt ="Logo"/>
             </div>
             <div className={styles.linkSection}>
-                <span>Home</span>
-                <span>Turnos</span>
-                <span>Sobre Nosotros</span>
-                <span>Contacto</span>
+                <Link to="/">
+                    <span>Home</span>
+                </Link>
+                <Link to="/appointments">
+                    <span>Turnos</span>
+                </Link>
+                <Link to="/aboutUs">
+                    <span>Sobre Nosotros</span>
+                </Link>
+                <Link to="/contactUs">
+                    <span>Contacto</span>
+                </Link>
             </div>
             <div className={styles.avatarSection}>
                 <img src = {avatar} alt ="Avatar"/>

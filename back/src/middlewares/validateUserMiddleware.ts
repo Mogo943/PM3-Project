@@ -32,7 +32,7 @@ const validateUser = (req: Request, res: Response, next: NextFunction) => {
         
         if(!password) throw new Error("Password required");
         if(password.length < 4) throw new Error("Password must have more than 4 characters");
-        if(password.length < 10) throw new Error("Password must have less than 20 characters");
+        if(password.length > 10) throw new Error("Password must have less than 10 characters");
 
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/
         if(!passwordRegex.test(password)) throw new Error("Password must hace one letter, one number and a special char at least");

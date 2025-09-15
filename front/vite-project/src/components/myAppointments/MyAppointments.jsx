@@ -33,7 +33,7 @@ const MyAppointment = () => {
                     time={appointmentCard.time}
                     description={appointmentCard.description}
                     status={appointmentCard.status}/>
-                })) : <h3 style={{margin: "12%"}}>Sin turnos agendados</h3>
+                })) : <h3>Sin turnos agendados</h3>
             }   
         </div>
     )

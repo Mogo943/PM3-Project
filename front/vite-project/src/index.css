@@ -26,7 +26,7 @@ body {
         to left,
         gray 0%,
         black 100%
-    )    
+    )
 }
 
 /**
@@ -351,4 +351,29 @@ template {
 
 [hidden] {
   display: none;
+}
+
+html, body, #root {
+  height: 100%; /* importante para que flex funcione desde arriba */
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* asegura pantalla completa */
+}
+
+header {
+  flex-shrink: 0;
+}
+
+main {
+  flex: 1; /* ocupa todo lo que queda */
+}
+
+footer {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 10px;
 }

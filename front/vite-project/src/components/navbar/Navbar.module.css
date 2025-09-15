@@ -44,3 +44,8 @@
         cursor: pointer;
     }
 }
+
+.linkSection a {
+  text-decoration: none;   /* quita el subrayado */
+  color: inherit;          /* hereda el color del padre */
+}
