@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import AppointmentCard from "../appointment/AppointmentCard";
+import style from "./MyAppointments.module.css"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 const GET_APPOINTMENTS = "http://localhost:3000/appointments";
 
@@ -23,6 +25,11 @@ const MyAppointment = () => {
             alignItems: "center", 
             justifyContent: "center",
         }}>
+            <div className={style.header}>
+                <Link to="/appointments/set-appointment">
+                    <button>Agendar Turno</button>
+                </Link>
+            </div>
             {
                 appointments.length ? 
                 (appointments.map((appointmentCard, index) => {

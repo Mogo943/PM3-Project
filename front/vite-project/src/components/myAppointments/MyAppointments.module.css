@@ -1,0 +1,28 @@
+.header{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    width: 90%;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: crimson;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(202, 22, 94);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+
+h3 {
+    text-align: center;
+    color: whitesmoke;
+}

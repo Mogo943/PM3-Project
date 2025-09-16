@@ -10,7 +10,7 @@ const validateRegister = Yup.object ({
     email: Yup.string()
         .required("*")
         .email("Formato invalido"),
-    birthdate: Yup.string()
+    birthdate: Yup.date()
         .required("*")
         .test("age_check", "El usuario debe ser mayor de 16 años", function(value){
             if(!value) return false;
@@ -28,10 +28,11 @@ const validateRegister = Yup.object ({
         }),
     nDni: Yup.number()
         .required("*")
-        .typeError("El DNI debe ser un numero")
-        .positive("El numero de DNI no puede ser negativo")
-        .integer("El DNI debe ser un numero entero")
-        .max(999999999,"El DNI debe contener maximo 9 digitos"),
+        .test("dni-check", "El DNI debe tener maximo 9 digitos", (value) => {
+            if(!value) return false;
+            const regex = /^\d{8}$/;
+            return regex.test(value)
+        }),
     username: Yup.string()
         .required("*")
         .min(4, "El nombre de usuario debe contener al menos 4 caracteres")
@@ -40,7 +41,7 @@ const validateRegister = Yup.object ({
         .required("*")
         .min(4, "La contraseña debe contener al menos 4 caracteres")
         .max(10, "La contraseña debe contener maximo 10 caracteres")
-        .matches(passwordRegex, "La contraseña debe tener al menos un numero, una letra mayuscula y un caracter especial"),
+        .matches(passwordRegex, "La contraseña debe tener al menos una letra minúscula, una letra mayúscula, un número y un caracter especial"),
 
 })
 

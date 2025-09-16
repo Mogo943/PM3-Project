@@ -9,6 +9,7 @@ import NavBar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 
 import { Routes, Route } from "react-router-dom";
+import AppointmentForm from "./components/appointmentForm/AppointmentForm";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeView/>}/>
           <Route path="/appointments" element={<AppointmentsView/>}/>
+          <Route path="/appointments/set-appointment" element={<AppointmentForm/>}/>
           <Route path="/contactUs" element={<ContactUsView/>}/>
           <Route path="/aboutUs" element={<AboutUsView/>}/>
           <Route path="/login" element={<Login/>}/>

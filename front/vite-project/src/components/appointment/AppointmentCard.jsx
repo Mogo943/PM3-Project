@@ -24,7 +24,6 @@ const AppointmentCard = (props) => {
             <p className={style.description}>{description}</p>
             
             <div className={style.status}>
-                {console.log(statusAppointment)}
                 {
                     statusAppointment === "active" ? <button onClick={handleClick}>Cancelar</button> : <span>Cancelado</span>
                 }

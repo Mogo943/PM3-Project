@@ -12,6 +12,8 @@ const Login = () => {
             password: '',
         },
         validationSchema: validateLogin,
+        validateOnChange: true,
+        validateOnBlur: true,
         onSubmit: (values) => {
             console.log(values);
             formik.resetForm();
@@ -21,10 +23,13 @@ const Login = () => {
             }
             axios.post(POST_LOGIN_USER, userData)
                 .then(({ data }) => {
+                    console.log(data.actualUser)
                     alert("Usuario logeado exitosamente.");
+                    localStorage.setItem("user", JSON.stringify(data.actualUser))
+                    console.log(localStorage)
                 })
                 .catch((error) => {
-                    alert(`Error: ${error.name} - ${error.message}`)
+                    alert(`Error: ${error?.name} - ${error?.response?.data?.message}`)
                 });
         },
     })
@@ -68,7 +73,11 @@ const Login = () => {
                 <span style={{color: "red"}}> * </span>
                  son obligatorios
             </p>
-            <button type="submit">Submit</button>
+            <button 
+                type="submit"
+                disabled={!(formik.isValid && formik.dirty) || formik.isSubmitting}>
+                    Iniciar Sesion
+                </button>
         </form>
     )
 }
