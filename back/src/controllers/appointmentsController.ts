@@ -14,8 +14,8 @@ export const getAllAppointments = async (req: Request, res:Response) => {
 
 export const getAppointmentDetail = async (req: Request, res:Response) => {
     try {
-        const {id} = req.body;
-        const appointment: Appointment = await getAppointmentDetailService(id);
+        const {id} = req.params;
+        const appointment: Appointment = await getAppointmentDetailService(Number(id));
         res.status(200).json(appointment);
     } catch (error:any) {
         res.status(404).json({message: error.message, error})
