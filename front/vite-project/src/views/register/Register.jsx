@@ -2,10 +2,13 @@ import { useFormik } from "formik";
 import validateRegister from "../../helpers/validateRegister";
 import style from "./register.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const POST_USER_URL = "http://localhost:3000/users/register";
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -32,6 +35,7 @@ const Register = () => {
             axios.post(POST_USER_URL, userData)
                 .then(({ data }) => {
                     alert("Usuario creado exitosamente.");
+                    navigate("/login")
                 })
                 .catch((error) => {
                     alert(`Error: ${error?.name} - ${error?.response?.data?.message}`)

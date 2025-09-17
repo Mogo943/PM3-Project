@@ -3,20 +3,26 @@ import AppointmentCard from "../appointment/AppointmentCard";
 import style from "./MyAppointments.module.css"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { getUserIdFromLocalStorage } from "../../helpers/actualUser";
 
-const GET_APPOINTMENTS = "http://localhost:3000/appointments";
+const GET_APPOINTMENTS = "http://localhost:3000/users";
 
 const MyAppointment = () => {
+
+    let userId = getUserIdFromLocalStorage();
+
     const [appointments, setAppointments] = useState([]);
     
     useEffect(() => {
-        axios(GET_APPOINTMENTS)
-            .then((response) => response.data)
+        axios.get(`${GET_APPOINTMENTS}/${userId}`)
+            .then((response) => {
+                return response.data.appointments
+            })
             .then((appointmentsFromDB) => setAppointments(appointmentsFromDB))
             .catch((error) => {
-                console.log(error)
+                console.log(error?.response?.data?.message)
             })
-    }, []);
+    }, [userId]);
 
     return (
         <div style={{

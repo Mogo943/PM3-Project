@@ -10,9 +10,9 @@ import Footer from "./components/footer/Footer";
 
 import { Routes, Route } from "react-router-dom";
 import AppointmentForm from "./components/appointmentForm/AppointmentForm";
+import ErrorView from "./views/errorview/ErrorView";
 
 function App() {
-
   return (
     <div className="app">
       <header>
@@ -27,6 +27,7 @@ function App() {
           <Route path="/aboutUs" element={<AboutUsView/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
+          <Route path="*" element={<ErrorView/>}/>
         </Routes>
       </main>
       <footer>

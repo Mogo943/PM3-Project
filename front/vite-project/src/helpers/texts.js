@@ -19,3 +19,7 @@ Podés escribirnos a través del formulario de esta página, enviarnos un correo
 También podés visitarnos en nuestro estudio: Av. Libertad 456, CABA.\n
 Estamos para ayudarte a dar el primer paso hacia tu próximo tatuaje.`
 };
+
+export const errorText = {
+  title: "Pagina Inexistente \n 404",
+} 

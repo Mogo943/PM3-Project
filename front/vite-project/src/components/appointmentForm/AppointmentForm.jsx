@@ -2,16 +2,24 @@ import { useFormik } from "formik";
 import validateAppointment from "../../helpers/validateAppointment";
 import axios from "axios";
 import style from "./AppointmentForm.module.css";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getUserIdFromLocalStorage } from "../../helpers/actualUser";
 
 const POST_APPOINTMENT = "http://localhost:3000/appointments/schedule";
 
 const AppointmentForm = () => {
-    const userData = localStorage.getItem("user");
-    let userId;
-    if(userData) {
-        const user = JSON.parse(userData);
-        userId = user.id;
-    }
+    const navigate = useNavigate();
+    
+    let userId = getUserIdFromLocalStorage();
+
+    useEffect(() => {
+        if(!userId){
+            navigate("/")
+        }
+    }, [userId, navigate])
+    
+    console.log(userId)
     const formik = useFormik({
         initialValues: {
             date: '',
@@ -34,6 +42,7 @@ const AppointmentForm = () => {
             axios.post(POST_APPOINTMENT, appointmentData)
                 .then(({ data }) => {
                     alert("Turno agendado exitosamente")
+                    navigate("/appointments")
                 })
                 .catch((error) => {
                     alert(`Error: ${error?.name} - ${error?.response?.data?.message}`)

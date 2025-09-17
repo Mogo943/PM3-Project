@@ -2,10 +2,13 @@ import validateLogin from "../../helpers/validateLogin";
 import { useFormik } from "formik";
 import style from "./login.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const POST_LOGIN_USER = "http://localhost:3000/users/login";
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -23,10 +26,10 @@ const Login = () => {
             }
             axios.post(POST_LOGIN_USER, userData)
                 .then(({ data }) => {
-                    console.log(data.actualUser)
+
                     alert("Usuario logeado exitosamente.");
                     localStorage.setItem("user", JSON.stringify(data.actualUser))
-                    console.log(localStorage)
+                    navigate("/");
                 })
                 .catch((error) => {
                     alert(`Error: ${error?.name} - ${error?.response?.data?.message}`)
@@ -49,7 +52,6 @@ const Login = () => {
             </div>
                 {formik.touched.username && formik.errors.username && (
                     <p style={{color: "red", marginLeft: "12px"}}>
-                        {console.log(formik.errors.username)}
                         {formik.errors.username}
                     </p>
                 )}

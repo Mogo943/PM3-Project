@@ -1,5 +1,8 @@
 import { useState } from "react";
-import style from "./AppointmentCard.module.css"
+import style from "./AppointmentCard.module.css";
+import axios from "axios";
+
+const PUT_CANCEL_APPOINTMENT = "http://localhost:3000/appointments/cancel";
 
 const AppointmentCard = (props) => {
     const {id, date, time, description, status} = props;
@@ -10,7 +13,17 @@ const AppointmentCard = (props) => {
     const [statusAppointment, setStatusAppointment] = useState(status)
 
     const handleClick = () => {
-        setStatusAppointment("cancelled")
+        const confirmed = window.confirm("Desea cancelar el turno?");
+        if(confirmed){
+            axios.put(PUT_CANCEL_APPOINTMENT, {id})
+            .then(({data}) => {
+                alert("Turno cancelado exitosamente")
+            })
+            .catch((error) => {
+                alert(`Error: ${error?.name} - ${error?.response?.data?.message}`)
+            })
+            setStatusAppointment("cancelled")
+        }
     }
     return(
         <div className={`${style.container} ${statusAppointment !== "active" ? style.cancelled : style.container}`}>

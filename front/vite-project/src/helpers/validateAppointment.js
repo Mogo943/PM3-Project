@@ -18,6 +18,11 @@ const validateAppointment = Yup.object({
             }
 
             return appointmentDate >= tomorrow && appointmentDate <= in14Days;
+        })
+        .test("weekday-check", "No se permiten turnos sábado o domingo", (value) => {
+            if (!value) return false;
+            const dayOfWeek = new Date(value).getDay();
+            return dayOfWeek !== 0 && dayOfWeek !== 6;
         }),
     time: Yup.string()
         .required("*")
