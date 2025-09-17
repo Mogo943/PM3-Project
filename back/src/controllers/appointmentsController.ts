@@ -24,7 +24,7 @@ export const getAppointmentDetail = async (req: Request, res:Response) => {
 
 export const schedule = async (req: Request, res:Response) => {
     try {
-        const {description, date, time, userId, status} = req.body
+        const {description, date, time, userId} = req.body
         const newAppointment: Appointment = await scheduleService({description, date, time, userId})
         res.status(201).json(newAppointment)
     } catch (error:any) {

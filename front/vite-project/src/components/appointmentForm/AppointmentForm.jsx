@@ -18,6 +18,11 @@ const AppointmentForm = () => {
             navigate("/")
         }
     }, [userId, navigate])
+
+    const toUTCDate = (dateStr) => {
+        const [year, month, day] = dateStr.split("-");
+        return new Date(Date.UTC(year, month - 1, day)); 
+    };
     
     console.log(userId)
     const formik = useFormik({
@@ -34,7 +39,7 @@ const AppointmentForm = () => {
             console.log(values);
             formik.resetForm();
             const appointmentData = {
-                date: values.date,
+                date: toUTCDate(values.date).toISOString(),
                 time: values.time,
                 description: values.description,
                 userId: Number(values.userId)

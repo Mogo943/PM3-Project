@@ -1,16 +1,20 @@
 import { Request, Response, NextFunction } from "express";
 
+function parseLocalDate(dateStr: string): Date {
+  const [year, month, day] = dateStr.split("-").map(Number) as [number, number, number];
+  const d = new Date(year, month - 1, day);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+
 const validateAppointment = (req: Request, res: Response, next: NextFunction) => {
     const { date, time, description } = req.body;
 
     try {
         if(!date) throw new Error("Date required");
         
-        const appointmentDate = new Date(date);
-        
-        if (isNaN(appointmentDate.getTime())) {
-            throw new Error("Invalid date format");
-        }
+        const appointmentDate = parseLocalDate(date);  
         
         const today = new Date();
         today.setHours(0, 0, 0, 0);
