@@ -36,7 +36,7 @@ export const cancel = async (req: Request, res:Response) => {
     try {
         const {id} = req.body;
         await cancelService(id)
-        res.status(200).json({message: "cambiar el estatus de un turno a cancelled"})
+        res.status(200).json({message: "Turno cancelado"})
     } catch (error:any) {
         res.status(404).json({message: error.message, error})
     }
