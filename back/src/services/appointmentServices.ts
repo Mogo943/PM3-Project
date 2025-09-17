@@ -37,10 +37,24 @@ export const cancelService = async (id: number): Promise<void> => {
         where: { id }
     })
 
-    if(foundAppointment) {
-        foundAppointment.status = AppointmentStatus.CANCELLED
-        await appointmentRepository.save(foundAppointment)
-    } else {
+    if(!foundAppointment) {
         throw new Error(`Appointment with id ${id} not found`)
     }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const appointmentDate = new Date(foundAppointment.date);
+    appointmentDate.setHours(0, 0, 0, 0);
+
+    if(appointmentDate.getTime() === today.getTime()){
+        throw new Error("Appointments cannot be cancelled on the same day")
+    }
+
+    if(appointmentDate < today) {
+        throw new Error("Past appointments cannot be cancelled")
+    }
+    
+    foundAppointment.status = AppointmentStatus.CANCELLED
+    await appointmentRepository.save(foundAppointment)
 }

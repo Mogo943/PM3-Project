@@ -26,7 +26,7 @@ const validateAppointment = Yup.object({
         }),
     time: Yup.string()
         .required("*")
-        .test("time-check", "La hora debe ser entre las 09:00 y las 17:30", (value) => {
+        .test("time-check", "La hora debe ser entre las 09:00 y las 17:30, en intervalos de 30 minutos", (value) => {
             if(!value) return false;
 
             const validTimes = [

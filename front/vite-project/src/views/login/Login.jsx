@@ -3,11 +3,21 @@ import { useFormik } from "formik";
 import style from "./login.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getUserIdFromLocalStorage } from "../../helpers/actualUser";
+import { useEffect } from "react";
 
 const POST_LOGIN_USER = "http://localhost:3000/users/login";
 
 const Login = () => {
     const navigate = useNavigate();
+
+    let userId = getUserIdFromLocalStorage();
+    
+        useEffect(() => {
+            if(userId){
+                navigate("/")
+            }
+        }, [userId, navigate])
 
     const formik = useFormik({
         initialValues: {

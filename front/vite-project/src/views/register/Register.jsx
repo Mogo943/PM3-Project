@@ -3,11 +3,21 @@ import validateRegister from "../../helpers/validateRegister";
 import style from "./register.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getUserIdFromLocalStorage } from "../../helpers/actualUser";
+import { useEffect } from "react";
 
 const POST_USER_URL = "http://localhost:3000/users/register";
 
 const Register = () => {
     const navigate = useNavigate();
+    
+        let userId = getUserIdFromLocalStorage();
+        
+            useEffect(() => {
+                if(userId){
+                    navigate("/")
+                }
+            }, [userId, navigate])
 
     const formik = useFormik({
         initialValues: {
