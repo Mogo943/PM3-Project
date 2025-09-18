@@ -18,13 +18,24 @@ const AppointmentCard = (props) => {
             axios.put(PUT_CANCEL_APPOINTMENT, {id})
             .then(({data}) => {
                 alert("Turno cancelado exitosamente")
+                setStatusAppointment("cancelled")
             })
             .catch((error) => {
                 alert(`Error: ${error?.name} - ${error?.response?.data?.message}`)
             })
-            setStatusAppointment("cancelled")
         }
     }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const appointmentDate = new Date(date);
+    appointmentDate.setHours(0, 0, 0, 0);
+
+    const canCancel =
+    statusAppointment === "active" &&
+    appointmentDate > today;
+    
     return(
         <div className={`${style.container} ${statusAppointment !== "active" ? style.cancelled : style.container}`}>
             <h2 className={style.h2}>{id}</h2>
@@ -38,7 +49,7 @@ const AppointmentCard = (props) => {
             
             <div className={style.status}>
                 {
-                    statusAppointment === "active" ? <button onClick={handleClick}>Cancelar</button> : <span>Cancelado</span>
+                    canCancel ? (<button onClick={handleClick}>Cancelar</button>) : (<span>Cancelado</span>)
                 }
             </div>
         </div>
