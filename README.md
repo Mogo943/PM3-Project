@@ -10,10 +10,10 @@ PM3-Project es una aplicación full stack desarrollada como parte del Módulo 3 
 
 ## Tecnologías usadas
 
-- **Backend**: Node.js, Express, TypeScript, bases de datos relacionales/no relacionales (PostgreSQL / MongoDB u otra según tu implementación), ORM (TypeORM u otro), enrutamiento, middlewares de seguridad  
+- **Backend**: Node.js, Express, TypeScript, bases de datos relacionales/no relacionales (PostgreSQL), ORM (TypeORM), enrutamiento, middlewares de seguridad  
 - **Frontend**: React, Vite, consumo de APIs REST, manejo de estados, componentes reutilizables  
-- **Testing / QA**: pruebas unitarias y de integración (Jest u otra herramienta), testing de endpoints  
-- **Otras herramientas**: Git/GitHub, Docker (si lo usaste), Postman/Insomnia, variables de entorno, scripts de migración
+- **Testing / QA**: API testing.
+- **Otras herramientas**: Git/GitHub, Postman/Insomnia, variables de entorno.
 
 ---
 
