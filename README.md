@@ -15,6 +15,27 @@ PM3-Project es una aplicación full stack desarrollada como parte del Módulo 3 
 - **Testing / QA**: API testing.
 - **Otras herramientas**: Git/GitHub, Postman/Insomnia, variables de entorno.
 
+<p align="center">
+  <p>BACKEND</p>
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=express,js,nodejs,ts,postgres" />
+  </a>
+</p>
+
+<p align="center">
+  <p>FRONTEND</p>
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=css,html,js,ts,react,vite" />
+  </a>
+</p>
+
+<p align="center">
+  <p>OTROS</p>
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=git,github,npm,postman,vscode" />
+  </a>
+</p>
+
 ---
 
 ## Instalación
