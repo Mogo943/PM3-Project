@@ -28,6 +28,18 @@ cd PM3-Project
 cd back
 npm install
 npm run dev  # o el script equivalente
+```
+
+---
+
+### 📫 Contacto
+
+Si buscas un perfil Full Stack detallista, con un enfoque en la calidad del software (QA) y la eficiencia:
+- ✉️ **Email:** carlosmogo.work@gmail.com
+- 💼 [**LinkedIn**](https://www.linkedin.com/in/carlosmogollon-it/)
+- 📁 [**CV**](https://bit.ly/carlos-mogollon-cv)
+
+---
 
 # Frontend
 cd ../front/vite-project
