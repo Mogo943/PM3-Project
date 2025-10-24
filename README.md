@@ -28,6 +28,11 @@ cd PM3-Project
 cd back
 npm install
 npm run dev  # o el script equivalente
+
+# Frontend
+cd ../front/vite-project
+npm install
+npm run dev
 ```
 
 ---
@@ -40,8 +45,3 @@ Si buscas un perfil Full Stack detallista, con un enfoque en la calidad del soft
 - 📁 [**CV**](https://bit.ly/carlos-mogollon-cv)
 
 ---
-
-# Frontend
-cd ../front/vite-project
-npm install
-npm run dev
