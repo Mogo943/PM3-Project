@@ -117,7 +117,3 @@ Para poder **liberar la agenda**
   **Entonces** el sistema muestra un mensaje de error indicando que no puede cancelarse un turno con fecha actual y no permite la cancelación.  
 
 ---
-
-## Maquetado de Base de Datos
-
-![alt text](image.png)
