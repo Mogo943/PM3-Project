@@ -8,7 +8,6 @@ PM3-Project es una aplicación full stack desarrollada como parte del Módulo 3 
 
 ---
 
----
 ## User Stories
 [User Stories del proyecto](https://github.com/Mogo943/PM3-Project/blob/main/assets/UserStories.md)
 
